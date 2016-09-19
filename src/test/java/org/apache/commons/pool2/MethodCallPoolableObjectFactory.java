@@ -112,6 +112,7 @@ public class MethodCallPoolableObjectFactory implements PooledObjectFactory<Obje
 
     @Override
     public PooledObject<Object> makeObject() throws Exception {
+        System.out.println("makeObject");
         final MethodCall call = new MethodCall("makeObject");
         methodCalls.add(call);
         final int originalCount = this.count++;
@@ -126,6 +127,7 @@ public class MethodCallPoolableObjectFactory implements PooledObjectFactory<Obje
 
     @Override
     public void activateObject(final PooledObject<Object> obj) throws Exception {
+        System.out.println("activateObject");
         methodCalls.add(new MethodCall("activateObject", obj.getObject()));
         if (activateObjectFail) {
             throw new PrivateException("activateObject");
@@ -134,6 +136,7 @@ public class MethodCallPoolableObjectFactory implements PooledObjectFactory<Obje
 
     @Override
     public boolean validateObject(final PooledObject<Object> obj) {
+        System.out.println("validateObject");
         final MethodCall call = new MethodCall("validateObject", obj.getObject());
         methodCalls.add(call);
         if (validateObjectFail) {
@@ -146,6 +149,7 @@ public class MethodCallPoolableObjectFactory implements PooledObjectFactory<Obje
 
     @Override
     public void passivateObject(final PooledObject<Object> obj) throws Exception {
+        System.out.println("passivateObject");
         methodCalls.add(new MethodCall("passivateObject", obj.getObject()));
         if (passivateObjectFail) {
             throw new PrivateException("passivateObject");
@@ -154,6 +158,7 @@ public class MethodCallPoolableObjectFactory implements PooledObjectFactory<Obje
 
     @Override
     public void destroyObject(final PooledObject<Object> obj) throws Exception {
+        System.out.println("destroyObject");
         methodCalls.add(new MethodCall("destroyObject", obj.getObject()));
         if (destroyObjectFail) {
             throw new PrivateException("destroyObject");
